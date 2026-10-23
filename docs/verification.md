@@ -70,14 +70,14 @@ plugin_manager action=install_bundle target=D:\Work\GitHub\dsh-workspace-mcp
 
 结论：插件对**真实第三方 Streamable HTTP MCP 服务**（该服务暴露 60+ 工具）同样工作，不只是测试 fixture。
 
-## 5. Gitee 安装验证（2026-10-23）
+## 5. Git 安装验证（2026-10-23，首次在 Gitee 镜像上完成）
 
-仓库：<https://gitee.com/jinngoo/dsh-workspace-mcp>（`main`，`lib/` 已入库）。
+仓库：<https://github.com/Jinngoo/dsh-workspace-mcp>（`main`，`lib/` 已入库）。
 
 用一次性 profile `wmcp-gitcheck` 验证对外分发路径：
 
 ```sh
-dsh plugin --profile wmcp-gitcheck add git+https://gitee.com/jinngoo/dsh-workspace-mcp.git
+dsh plugin --profile wmcp-gitcheck add git+https://github.com/Jinngoo/dsh-workspace-mcp.git
 # → + @jinngoo/dsh-workspace-mcp 0.1.0
 ```
 
@@ -86,6 +86,8 @@ dsh plugin --profile wmcp-gitcheck add git+https://gitee.com/jinngoo/dsh-workspa
 - 用该 profile 在真实工作区跑 headless 会话：日志 `mounted MCP server "funplay" (streamable-http)`，模型调用 `mcp__funplay__get_project_info` 成功返回项目信息，final `DollMachine`，exit 0。
 
 验证后已删除一次性 profile。
+
+> 迁移说明（2026-10-23）：以上验证实际跑在**当时的主仓库 Gitee 镜像**上（`gitee.com/jinngoo/dsh-workspace-mcp`，与现在 GitHub 上的是同一份提交历史）。仓库随后迁到 GitHub，本文的命令与 URL 已同步为 GitHub 写法；git 依赖安装机制（`lib/` 入库、不跑 prepare）与托管平台无关，迁移后 GitHub 远端已验证包含完整 `lib/` 与 `cordis.patch.yml`。
 
 ## 6. 验收标准对照
 

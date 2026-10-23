@@ -5,11 +5,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://gitee.com/jinngoo/dsh-workspace-mcp.git"
+    "url": "git+https://github.com/Jinngoo/dsh-workspace-mcp.git"
   },
-  "homepage": "https://gitee.com/jinngoo/dsh-workspace-mcp#readme",
+  "homepage": "https://github.com/Jinngoo/dsh-workspace-mcp#readme",
   "bugs": {
-    "url": "https://gitee.com/jinngoo/dsh-workspace-mcp/issues"
+    "url": "https://github.com/Jinngoo/dsh-workspace-mcp/issues"
   },
   "engines": {
     "node": ">=22",
