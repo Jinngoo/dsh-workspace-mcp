@@ -1,0 +1,87 @@
+{
+  "name": "@jinngoo/dsh-workspace-mcp",
+  "version": "0.1.0",
+  "description": "DSH Bundle：工作区级 MCP 配置。每个会话启动时读取该会话工作区根下的 .dsh/mcp.json，把声明的每个 MCP 服务器挂成 agent 作用域的 MCP client，工具以 mcp__<serverName>__<tool> 出现在该会话。无需为每个项目新建 profile。",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitee.com/jinngoo/dsh-workspace-mcp.git"
+  },
+  "homepage": "https://gitee.com/jinngoo/dsh-workspace-mcp#readme",
+  "bugs": {
+    "url": "https://gitee.com/jinngoo/dsh-workspace-mcp/issues"
+  },
+  "engines": {
+    "node": ">=22",
+    "dsh": "^0.2.0-rc.1"
+  },
+  "keywords": [
+    "deepseek",
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "mcp",
+    "model-context-protocol",
+    "workspace"
+  ],
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "docs",
+    "README.md",
+    "README.en.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('lib',{recursive:true,force:true})\"",
+    "build": "pnpm clean && tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "prepublishOnly": "pnpm typecheck && pnpm test && pnpm build"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.5",
+    "@deepseek-ai/dsh-agent": "^0.2.0-rc.1",
+    "@deepseek-ai/dsh-mcp-client": "^0.2.0-rc.1",
+    "@deepseek-ai/dsh-session": "^0.2.0-rc.1",
+    "@deepseek-ai/dsh-working-directory": "^0.2.0-rc.1"
+  },
+  "dependencies": {
+    "@deepseek-ai/schemastery": "^3.18.5"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh-agent": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-mcp-client": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-session": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-working-directory": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-agent-loop-testkit": "0.2.1-rc.2",
+    "@deepseek-ai/schemastery": "^3.18.5",
+    "@modelcontextprotocol/node": "2.0.0",
+    "@modelcontextprotocol/server": "2.2.0",
+    "@types/node": "^22.20.0",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.8",
+    "zod": "4.4.3"
+  }
+}

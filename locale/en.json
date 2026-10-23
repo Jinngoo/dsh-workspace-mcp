@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "title": "Workspace MCP",
+    "description": "Reads .dsh/mcp.json from each session's workspace and mounts every declared MCP server as a session-scoped MCP client (mcp__<server>__<tool>). No per-project profile needed."
+  },
+  "config": {
+    "fileName": "Declaration file path, relative to the workspace root.",
+    "watch": "Watch the declaration file and remount the MCP servers of live sessions after it changes.",
+    "startupTimeoutMs": "Maximum time to wait for the initial connection and tool discovery before letting the session continue.",
+    "allowStdio": "Allow stdio MCP servers. This lets a workspace file execute arbitrary local commands, so it is off by default; enable it only for workspaces you trust.",
+    "stdioAllowlist": "Optional guard rail: when non-empty, a stdio command must equal one entry or live below one entry.",
+    "mountInSubagents": "Also mount the workspace's MCP servers for subagent children. Off by default so delegated agents do not spawn duplicate servers.",
+    "toolCallTimeoutMs": "Default timeout for each MCP tool call; a server entry may override it."
+  }
+}

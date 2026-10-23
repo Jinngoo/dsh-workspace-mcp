@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "title": "工作区 MCP",
+    "description": "每个会话启动时读取该会话工作区下的 .dsh/mcp.json，把声明的每个 MCP 服务器挂成该会话作用域的 MCP client（工具名 mcp__<服务器>__<工具>）。不需要为每个项目单独建 profile。"
+  },
+  "config": {
+    "fileName": "声明文件路径，相对工作区根。",
+    "watch": "监视声明文件；变化后为仍存活的会话重新挂载 MCP 服务器。",
+    "startupTimeoutMs": "等待首次连接与工具发现的时长上限，超时后会话继续创建。",
+    "allowStdio": "允许 stdio MCP 服务器。工作区文件可能来自 clone 下来的仓库，开启等于允许它执行本机任意命令，默认关闭，只对可信工作区开启。",
+    "stdioAllowlist": "可选护栏：非空时，stdio 的 command 必须等于其中一项或位于其下。",
+    "mountInSubagents": "子 agent 是否也挂载本工作区的 MCP 服务器。默认关闭，避免每个派生的子 agent 都再起一份服务器。",
+    "toolCallTimeoutMs": "每次 MCP 工具调用的默认超时；服务器条目可单独覆盖。"
+  }
+}

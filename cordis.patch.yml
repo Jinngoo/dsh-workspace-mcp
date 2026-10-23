@@ -1,0 +1,27 @@
+# dsh bundle patch：在 profile 上插入一行「工作区级 MCP 配置」。
+#
+# 行名 @jinngoo/dsh-workspace-mcp 从 profile 自己的 node_modules 解析；本包由
+# plugin_manager 的 install_bundle（或 `dsh plugin --profile <name> add <path>`）安装。
+#
+# 工作区声明文件（默认 .dsh/mcp.json）由每个会话按自己的「会话原始工作目录」读取，
+# 所以一行插件服务所有工作区，不需要修改 profile 的 cordis.patch.yml。
+#
+# 可覆盖的 config（不写即用下列默认值）：
+#   fileName:          声明文件路径，相对工作区根；也接受绝对路径
+#   watch:             true 时监视文件变化，为仍存活的会话重新挂载（默认 false）
+#   startupTimeoutMs:  等待首次连接+工具发现的时长上限，超时放行会话（默认 10000）
+#   allowStdio:        允许 stdio 服务器 = 允许工作区文件执行本机任意命令；
+#                      默认 false，只对可信工作区开启
+#   stdioAllowlist:    可选护栏，非空时 stdio command 必须等于某项或位于其下
+#   mountInSubagents:  子 agent 是否也挂载（默认 false，避免重复起服务器）
+#   toolCallTimeoutMs: 每次 MCP 工具调用的默认超时，可选
+- insert:
+    - id: workspace-mcp
+      name: '@jinngoo/dsh-workspace-mcp'
+      config:
+        fileName: '.dsh/mcp.json'
+        watch: false
+        startupTimeoutMs: 10000
+        allowStdio: false
+        stdioAllowlist: []
+        mountInSubagents: false
