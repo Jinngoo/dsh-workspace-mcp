@@ -7,7 +7,7 @@
 ```sh
 cd D:\Work\GitHub\dsh-workspace-mcp
 pnpm typecheck     # tsc --noEmit，通过
-pnpm test          # 23 passed (2 files)
+pnpm test          # 24 passed (2 files)
 pnpm build         # tsc → lib/
 ```
 
