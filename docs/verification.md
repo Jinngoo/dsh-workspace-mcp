@@ -11,7 +11,7 @@ pnpm test          # 24 passed (2 files)
 pnpm build         # tsc → lib/
 ```
 
-- `tests/config.spec.ts`（15 条）：声明文件两种形状（对象 / ACP 数组）、stdio 相对 cwd、绝对 cwd、stdio 默认禁用、stdioAllowlist、非法 server 名跳过、坏 URL / SSE 拒绝、args/env/headers 类型、超时与 reconnect 转发、空 `mcpServers`、坏 JSON / 缺 `mcpServers` / 非对象；以及 `resolveWorkspaceRoot` 与子 agent 判定。
+- `tests/config.spec.ts`（16 条）：声明文件两种形状（对象 / ACP 数组）、stdio 相对 cwd、绝对 cwd、stdio 默认禁用、stdioAllowlist、非法 server 名跳过、坏 URL / SSE 拒绝、args/env/headers 类型、超时与 reconnect 转发、空 `mcpServers`、坏 JSON / 缺 `mcpServers` / 非对象；以及 `resolveWorkspaceRoot` 与子 agent 判定。
 - `tests/integration.spec.ts`（8 条）：用 `@deepseek-ai/dsh-agent-loop-testkit` 挂载**生产 AgentLoop** + 真实本地 Streamable HTTP MCP fixture，断言 model-visible 工具表：
   1. 工作区声明的 HTTP server → 工具 `mcp__demo__ping`，调用返回 `pong-alpha`；
   2. 没有声明文件 → 无任何 `mcp__*` 工具；
