@@ -168,6 +168,12 @@ describe('parseWorkspaceMcpDocument', () => {
     expect(result.problems).toEqual([])
   })
 
+  it('tolerates a UTF-8 BOM and whitespace around the document', () => {
+    const text = `\uFEFF${JSON.stringify({ mcpServers: { demo: { type: 'http', url: 'http://127.0.0.1:9/mcp' } } })}`
+    const result = parseWorkspaceMcpDocument(text, { root, allowStdio: false, stdioAllowlist: [] })
+    expect(result.configs.map(config => config.serverName)).toEqual(['demo'])
+  })
+
   it('throws for invalid JSON, a non-object document, and a missing mcpServers', () => {
     const options: WorkspaceMcpOptions = { root, allowStdio: false, stdioAllowlist: [] }
     expect(() => parseWorkspaceMcpDocument('{', options)).toThrow(WorkspaceMcpFileError)

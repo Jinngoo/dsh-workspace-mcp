@@ -106,9 +106,11 @@ export function isSubagentHeader(header: WorkspaceMcpSessionHeader): boolean {
  * @throws {@link WorkspaceMcpFileError} when the document itself is unusable.
  */
 export function parseWorkspaceMcpDocument(text: string, options: WorkspaceMcpOptions): ParsedWorkspaceMcp {
+  // Windows editors love a UTF-8 BOM; JSON.parse rejects it as an unexpected token.
+  const source = text.charCodeAt(0) === 0xfeff ? text.slice(1) : text
   let document: unknown
   try {
-    document = JSON.parse(text)
+    document = JSON.parse(source)
   } catch (error: unknown) {
     throw new WorkspaceMcpFileError(`invalid JSON: ${error instanceof Error ? error.message : String(error)}`)
   }
