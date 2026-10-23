@@ -50,7 +50,27 @@ plugin_manager action=install_bundle target=D:\Work\GitHub\dsh-workspace-mcp
 - 运行中 host 的 live 配置目录只有一条：`include:workspace-mcp`（`Config.listConfigs name=@jinngoo/dsh-workspace-mcp`，status `schema`）。
 - profile 的 `cordis.patch.yml` 未被改动。
 
-## 4. 验收标准对照
+## 4. 真实 MCP 服务验证（Funplay Cocos MCP，2026-10-23）
+
+工作区 `D:\Work\Other\TempWorkspace` 写入：
+
+```json
+{
+  "mcpServers": {
+    "funplay": { "type": "http", "url": "http://127.0.0.1:22017/" }
+  }
+}
+```
+
+用 `wmcp-e2e`（bundle 安装形态）在该工作区跑真实 headless 会话（无静态 mcp-client 行），提示模型调用 `mcp__funplay__get_project_info`：
+
+- 插件日志：`[info][workspace-mcp] workspace D:\Work\Other\TempWorkspace: mounted MCP server "funplay" (streamable-http)`
+- 模型实际发出 `tool_call mcp__funplay__get_project_info` → 返回真实服务数据（`Funplay Cocos MCP - DollMachine` v0.6.3、projectName `DollMachine`、Cocos 3.8.7、项目路径），final 为 `DollMachine — D:\Work\GameCatStudio\DollMachine\program\client\DollMachine`
+- 同一调用在持久会话日志中可回读（`session-40bb716d-...`），exit 0
+
+结论：插件对**真实第三方 Streamable HTTP MCP 服务**（该服务暴露 60+ 工具）同样工作，不只是测试 fixture。
+
+## 5. 验收标准对照
 
 | 验收项 | 状态 | 证据 |
 |---|---|---|
@@ -62,7 +82,7 @@ plugin_manager action=install_bundle target=D:\Work\GitHub\dsh-workspace-mcp
 | 6 会话结束 → MCP 子进程退出 | PASS | stdio 场景：PID 文件记录的子进程在会话结束后不存在 |
 | 7 重启后行为不变（配置来自工作区，不写 profile） | PASS | `--dump-config` 含插件行；配置文件不在 profile 中；多进程重复运行行为一致 |
 
-## 5. 未覆盖 / 已知限制
+## 6. 未覆盖 / 已知限制
 
 - 子 agent 的“重复进程/连接”只在测试中通过 `mountInSubagents` 开关验证语义；未在真实多级 subagent 会话里统计进程数。
 - `watch` 的 remount 以 integration 测试覆盖（真实 fs 变化 + 轮询），未在真实模型会话中演示。
