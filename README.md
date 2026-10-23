@@ -40,10 +40,16 @@ DSH 的配置层只有：profile bundles → profile `cordis.patch.yml` → `$DS
 plugin_manager  action: install_bundle  target: D:\Work\GitHub\dsh-workspace-mcp
 ```
 
-方式二（CLI）：
+方式二（CLI，本地目录）：
 
 ```sh
 dsh plugin --profile web add D:\Work\GitHub\dsh-workspace-mcp
+```
+
+方式三（从 Gitee 直接安装，`lib/` 已入库，无需构建）：
+
+```sh
+dsh plugin --profile web add git+https://gitee.com/jinngoo/dsh-workspace-mcp.git
 ```
 
 安装后插件行由本包的 `cordis.patch.yml` 自动插入，**不需要**手改 profile 的 `cordis.patch.yml`。工作区配置文件本身也不需要 profile 做任何事。

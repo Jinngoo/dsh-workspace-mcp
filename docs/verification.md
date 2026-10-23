@@ -70,7 +70,24 @@ plugin_manager action=install_bundle target=D:\Work\GitHub\dsh-workspace-mcp
 
 结论：插件对**真实第三方 Streamable HTTP MCP 服务**（该服务暴露 60+ 工具）同样工作，不只是测试 fixture。
 
-## 5. 验收标准对照
+## 5. Gitee 安装验证（2026-10-23）
+
+仓库：<https://gitee.com/jinngoo/dsh-workspace-mcp>（`main`，`lib/` 已入库）。
+
+用一次性 profile `wmcp-gitcheck` 验证对外分发路径：
+
+```sh
+dsh plugin --profile wmcp-gitcheck add git+https://gitee.com/jinngoo/dsh-workspace-mcp.git
+# → + @jinngoo/dsh-workspace-mcp 0.1.0
+```
+
+- 安装产物含 `lib/`、`cordis.patch.yml`、`locale/`、`docs/`（无需构建，git 依赖不会跑 prepare）；
+- `--dump-config` 组合出 `# == @jinngoo/dsh-workspace-mcp` 行，Config 为 patch 默认值；
+- 用该 profile 在真实工作区跑 headless 会话：日志 `mounted MCP server "funplay" (streamable-http)`，模型调用 `mcp__funplay__get_project_info` 成功返回项目信息，final `DollMachine`，exit 0。
+
+验证后已删除一次性 profile。
+
+## 6. 验收标准对照
 
 | 验收项 | 状态 | 证据 |
 |---|---|---|
@@ -82,7 +99,7 @@ plugin_manager action=install_bundle target=D:\Work\GitHub\dsh-workspace-mcp
 | 6 会话结束 → MCP 子进程退出 | PASS | stdio 场景：PID 文件记录的子进程在会话结束后不存在 |
 | 7 重启后行为不变（配置来自工作区，不写 profile） | PASS | `--dump-config` 含插件行；配置文件不在 profile 中；多进程重复运行行为一致 |
 
-## 6. 未覆盖 / 已知限制
+## 7. 未覆盖 / 已知限制
 
 - 子 agent 的“重复进程/连接”只在测试中通过 `mountInSubagents` 开关验证语义；未在真实多级 subagent 会话里统计进程数。
 - `watch` 的 remount 以 integration 测试覆盖（真实 fs 变化 + 轮询），未在真实模型会话中演示。
