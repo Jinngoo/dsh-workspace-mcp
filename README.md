@@ -34,22 +34,31 @@ DSH 的配置层只有：profile bundles → profile `cordis.patch.yml` → `$DS
 
 > 前提：DSH 0.2.x（`engines.dsh: ^0.2.0-rc.1`）。
 
-方式一（推荐，plugin_manager）：
+方式一（推荐，npm registry）：
+
+```bash
+dsh plugin --profile <profile> add @jinngoo/dsh-workspace-mcp
+```
+
+或在 DSH 会话里用 `plugin_manager`：
 
 ```
-plugin_manager  action: install_bundle  target: D:\Work\GitHub\dsh-workspace-mcp
+action: install_bundle
+target: @jinngoo/dsh-workspace-mcp@latest
 ```
 
-方式二（CLI，本地目录）：
+方式二（GitHub 直装，`lib/` 已入库，无需构建）：
 
 ```sh
-dsh plugin --profile web add D:\Work\GitHub\dsh-workspace-mcp
+dsh plugin --profile <profile> add git+https://github.com/Jinngoo/dsh-workspace-mcp.git
 ```
 
-方式三（从 GitHub 直接安装，`lib/` 已入库，无需构建）：
+方式三（本地开发，绝对目录）：`link:` 安装的运行时依赖与 peer 都从 checkout 自己的 `node_modules` 解析，所以先装依赖再安装:
 
 ```sh
-dsh plugin --profile web add git+https://github.com/Jinngoo/dsh-workspace-mcp.git
+git clone git@github.com:Jinngoo/dsh-workspace-mcp.git
+cd dsh-workspace-mcp && pnpm install
+dsh plugin --profile <profile> add <克隆目录的绝对路径>
 ```
 
 安装后插件行由本包的 `cordis.patch.yml` 自动插入，**不需要**手改 profile 的 `cordis.patch.yml`。工作区配置文件本身也不需要 profile 做任何事。

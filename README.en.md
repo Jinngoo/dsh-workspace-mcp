@@ -10,10 +10,33 @@ On every `agent/created`, the plugin resolves the **immutable** session project 
 
 ## Install
 
+Published on npm:
+
+```bash
+dsh plugin --profile <profile> add @jinngoo/dsh-workspace-mcp
 ```
-plugin_manager  action: install_bundle  target: D:\Work\GitHub\dsh-workspace-mcp
-# or
-dsh plugin --profile web add D:\Work\GitHub\dsh-workspace-mcp
+
+or, from a DSH session:
+
+```
+action: install_bundle
+target: @jinngoo/dsh-workspace-mcp@latest
+```
+
+Local development: clone, install dependencies (a `link:` install resolves its
+dependencies and peers from the checkout's own `node_modules`), then install from
+the absolute checkout path:
+
+```bash
+git clone git@github.com:Jinngoo/dsh-workspace-mcp.git
+cd dsh-workspace-mcp && pnpm install
+dsh plugin --profile <profile> add <absolute path to the checkout>
+```
+
+Install from GitHub instead (the built `lib/` is committed):
+
+```bash
+dsh plugin --profile <profile> add git+https://github.com/Jinngoo/dsh-workspace-mcp.git
 ```
 
 The bundle's `cordis.patch.yml` inserts the row; the profile patch file needs no hand edits.

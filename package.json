@@ -1,8 +1,12 @@
 {
   "name": "@jinngoo/dsh-workspace-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "DSH Bundle：工作区级 MCP 配置。每个会话启动时读取该会话工作区根下的 .dsh/mcp.json，把声明的每个 MCP 服务器挂成 agent 作用域的 MCP client，工具以 mcp__<serverName>__<tool> 出现在该会话。无需为每个项目新建 profile。",
+  "author": "Jinngoo <jinngoo@qq.com> (https://github.com/Jinngoo)",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jinngoo/dsh-workspace-mcp.git"
